@@ -1,0 +1,871 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title> Vigor</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+    </title>
+
+</head>
+   <style>
+
+      
+      .dropdownButton{
+        position: absolute;
+         right: 10px;
+         margin-bottom: 15px;
+      }
+      .profileButton img{
+      width: 20px;
+      }
+      h5{
+      padding-bottom: 5px;
+      padding-top: 3px;
+      }
+      .genre{
+      border:solid 2px;
+      border-radius: 3px;
+      margin:5px;
+      white-space: nowrap;
+      background-color:#ccc;
+      padding:2px;
+      }
+      
+      .dropDown-Group1{
+      position: relative;
+      margin: 4px 2px;
+      }
+      .dropDown-Group2{
+      position: relative;
+      margin: 4px 2px;
+      }
+      .dropDown-Group3{
+      position: relative;
+      margin: 4px 2px;
+      }
+      .submitButton{
+      border-radius: 12px;
+      background-color: #04AA6D;
+      border: none;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 100px;
+
+      }
+
+      .buttonA {
+          margin-top: 10px;
+      }
+       .entryPage {
+           display: flex;
+           flex-wrap: wrap;
+           position: fixed;
+           height: 100%;
+           padding: 50px;
+           justify-content: center;
+           align-items: center;
+           min-width: 100%;
+           background-image: url('img/Making-Friends-at-the-Gym-GQ-2018-050218.jpg');
+           background-repeat: no-repeat;
+           background-position: center;
+           background-size: cover;
+       }
+
+       .signIn {
+           flex: 1 1 10px;
+           height: 130px;
+           width: 50px;
+           position: relative;
+           border: 1px solid black;
+           background-color: gray;
+           margin-right: 20px;
+           text-align: center;
+           overflow: hidden;
+           display: inline-block;
+       }
+
+       .signUp {
+           flex: 1 1 10px;
+           height: 130px;
+           width: 50px;
+           position: relative;
+           border: 1px solid black;
+           background-color: gray;
+           text-align: center;
+           overflow: hidden;
+           display: inline-block;
+       }
+       .white {
+           background-color: white;
+
+       }
+
+       .signOutPage {
+        position: fixed;
+           height: 100%;
+           width: 100%;
+           background-image: url('img/Capture.jpg');
+           background-repeat: no-repeat;
+           background-position: center;
+           background-size: cover;
+           text-align: center;
+           overflow: auto;
+           padding-top: 150px;
+       }
+       .signInPage{
+           position: fixed;
+           height: 100%;
+           width: 100%;
+           background-image: url('img/Making-Friends-at-the-Gym-3.jpg');
+           
+           background-repeat: no-repeat;
+           background-position: center;
+           background-size: cover;
+           text-align: center;
+           overflow: auto;
+           padding-top: 150px;
+       }
+       
+
+       #signUpPage{
+          color: black;
+          height: 100%;
+          position: fixed;
+          width: 100%;
+           background-image: url('img/Making-Friends-at-the-Gym-2.jpg');
+           background-repeat: no-repeat;
+           background-position: center;
+           background-size: cover;
+           overflow: auto;
+       }
+       #updatePage{
+          color: black;
+          position: fixed;
+          height: 100%;
+          width: 100%;
+           background-image: url('img/Making-Friends-at-the-Gym-2.jpg');
+           background-repeat: no-repeat;
+           background-position: center;
+           background-size: cover;
+           overflow: auto;
+       }
+       .skeeps2{
+           padding-left: 15px;
+       }
+       .ricks {
+         height: 75px;
+       }
+       .ricks1 {
+         height: 15px;
+       }
+       .ricks2 {
+         margin-left: 15px;
+       }
+       .blue {
+
+           background-color: blue;
+       }
+
+       /* Split the screen in half */
+       .split {
+           height: 90%;
+           width: 50%;
+           position: fixed;
+           z-index: 1;
+           top: 0;
+           overflow-x: hidden;
+           padding-top: 20px;
+           margin-top: 40px;
+           height: 100%;
+       }
+
+       /* Control the left side */
+       .left {
+           left: 0;
+           /*background-color: #111;*/
+           width: 15%;
+           margin-top: 70px;
+           border-right: 2px solid black;
+       }
+
+       /* Control the right side */
+       .right {
+           right: 0;
+           /*background-color: red;*/
+           width: 85%;
+       }
+       h2{
+           margin-left:-50px;
+       }
+       
+       .logoUM{
+           top: 15%;
+           left: 49%;
+           height: 50px;
+           position: absolute;
+       }
+       .container{
+          height: 75px;
+       }
+       .containerSearch{
+           height: 50%;
+           overflow: hidden;
+           display: inline-block;
+       }
+       .skeeps{
+           height: 75px;
+       }
+       .skeeps1{
+           height: 75px;
+       }
+       .genderTopPadding{
+           padding-top: 175px;
+       }
+       .buttonSpacer{
+           height: 5px;
+       }
+       .lineDawg{
+            background-color:black;
+            height: 0.5px;
+            margin-top: -1px;
+            margin-bottom: 8px;
+       }
+       .filterpad0{
+           padding-left: 10px;
+           padding-top: 50px;
+           height: 15px;
+       }
+       .filterpad1{
+        padding-top: 60px;
+           height: 15px;
+       }
+       .filterpad2{
+        padding-top: 20px;
+           height: 15px;
+       }
+       .filterpad4{
+        padding-top: 325px;
+           height: 15px;
+       }
+       .rowtopspacer{
+        margin-top:205px;
+       }
+       .rowSearchbar{
+           padding-left: 2px;
+       }
+
+       #right {
+           background-image: url('img/Capture.jpg');
+           height: 100%;
+       }
+       .vigor{
+           position: absolute;
+           top: 5px;
+           left: 10px;
+           height:70px;
+       }
+       .content1{
+           position: relative;
+       }
+       .content2{
+           position: relative;
+       }
+       .kaboom {
+        text-align: center;
+       }
+
+       .report{
+          position: absolute;
+          right: 50px;
+          margin-bottom: 15px;
+       }
+       .report img{
+       width: 20px;
+       }
+       .sendHome{
+            position: absolute;
+           top: 0;
+           left: 0;
+           height:70px;
+           width: 165px;
+           background: transparent;
+            border: none;
+            font-size:0;
+       }
+
+   </style>
+
+   <body>
+
+       <div id='app'>
+           <nav class="navbar navbar-default navbar-fixed-top">
+               <div class="container">
+                   <div class="navbar-header">
+                    <h2>
+                        <div id="content1">
+                            <img src="img/vigor.gif" class="vigor"/>
+                            <button class="sendHome" v-show="signedIn" @click="returnHome()"></button>
+                        </div>
+                        <div id="content2">
+                            <img class="logoUM" src="img/mlogo1.png">
+                        </div>
+                        
+                        <button @click="searchPageShow = !searchPageShow; reportPageShow = !reportPageShow" v-show="sx" class="report" type="button"><span><img src="img/report.png" /></span></button>
+                        <div class="dropdownButton">
+                            <button href="#" class="profileButton"  v-show="sw" data-toggle="dropdown">
+                              <img src="img/profileIcon.png">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="imageDropdown">
+                              <li @click="searchPageShow = !searchPageShow; updatePageShow = !updatePageShow; reportPageShow = false; sx = !sx;" role="presentation"><a role="menuitem" tabindex="-1" href="#">Update profile</a></li>
+                              <li @click="searchPageShow = !searchPageShow; signOutPageShow = !signOutPageShow; reportPageShow = false; sw = false; sx = false;" role="presentation"><a role="menuitem" tabindex="-1" href="#">Sign out</a></li>
+                            </ul>
+                          </div>
+                    </h2>
+                   </div>
+               </div>
+           </nav>
+
+           <div v-if="reportPageShow" class="entryPage">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h1 class = "kaboom">Report a User</h1>
+                <!--<h3 class = "kaboom">In Your Subject Line, Include the Username of the Individual You'd Like to Report</h3>-->
+                 <form class="kaboom" method="post">
+                 <!--<form class="kaboom" action="contactform.php" method="post">-->
+                    <div><input type="text" id="reporterName" placeholder="Your Full Name"></div>
+                    <div class="ricks1"></div>
+                    <div><input type="text" id="reporteeName"  placeholder="Name of Reported User"></div>
+                    <div class="ricks1"></div>
+                    <div><input type="text" id="reporterEmail"  placeholder="Your E-Mail"></div>
+                    <div class="ricks1"></div>
+                    <div><input type="text" id="reportSubject" width="40%" placeholder="Subject"></div>
+                    <div class="ricks1"></div>
+                    <div><textarea id="reportMessage"  rows="10" cols="100" placeholder="Message"> </textarea></div>
+                     <div class="ricks1"></div>
+                     <div><button class="btn btn-success" @click="sendEmail()" type="submit" name="submit">Send</button>
+                        <button class="btn btn-warning" @click="returnToSearch()">← Go Back</button>
+                    </div>
+             </div>
+        </div>
+
+           <div v-if="entryPageShow" class="entryPage">
+               <div class="signIn">
+                   <h3>Welcome Back!</h3>
+                   <v-alert
+                    color="red"
+                    type="warning"
+                    ></v-alert>
+                   <button class="btn btn-light" @click="entryPageShow = !entryPageShow; signInPageShow = !signInPageShow">Sign in</button>
+
+               </div>
+               <div class="signUp">
+                   <h3>Don't Have an Account Yet?</h3>
+                   <button class="btn btn-light" @click="entryPageShow = !entryPageShow; signUpPageShow = !signUpPageShow">Sign up</button>
+               </div>
+           </div>
+
+           <div v-if="signInPageShow" class="signInPage">
+               <div class="ricks"></div>
+               <div class="col-lg-12 col-md-12 col-sm-12">
+                   <h3 class = "kaboom">Email: </h3>
+                   <input type="text" id="email" v-on:keyup.enter="keylistener">
+               </div>
+               <div class="col-lg-12 col-md-12 col-sm-12">
+                   <h3 class = "kaboom">Password: </h3>
+                   <!--<input type="text" id="password" v-on:keyup.enter="keylistener">-->
+                   <input type="password" id="password">
+                   <br><br>
+                   <input type="checkbox" onclick="myFunction99()">Show Password
+                   <div class="ricks1"></div>
+                   <script>
+                    function myFunction99() {
+                      var x = document.getElementById("password");
+                      if (x.type === "password") {
+                        x.type = "text";
+                      } else {
+                        x.type = "password";
+                      }
+                    }
+                    </script>
+               </div>
+               <div class="ricks2">
+                <button class="btn btn-success" @click="signIn()">Sign In</button>
+                <button class="btn btn-warning" @click="returnHome()">← Go Back</button>
+                </div>
+           </div>
+           
+           <div v-if="signOutPageShow" class="signOutPage">
+               <h1 class = "kaboom">Signed Out</h1>
+               <h3 class = "kaboom">You have successfully signed out!</h3>
+
+                
+                <div class="kaboom">
+                <button class="btn btn-success" @click="signOut()">Home</button>
+                </div>
+            </div>
+
+           <div v-if="signUpPageShow" id="signUpPage">
+            <div class="skeeps"></div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3>Email: {{email}}</h3>
+                <input type="text" id="emailTextBox">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3>Name: (First & Last) {{name}}</h3>
+                <input type="text" id="nameTextBox">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3>Password: {{password}}</h3>
+                <input type="password" id="passwordTextBox">
+                <br><br>
+                <input type="checkbox" onclick="myFunction99()">Show Password
+                <div class="ricks1"></div>
+                <script>
+                    function myFunction99() {
+                    var x = document.getElementById("password");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                    }
+                </script>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                 <h3>Gender</h3>
+                 <div class="genders">
+                     <button v-bind:class="{'btn btn-outline-info': gender!='Male', 'btn btn-info': gender=='Male'}"
+                        @click="setGender('Male')">
+                         Male
+                     </button>
+                     <button v-bind:class="{'btn btn-outline-info': gender!='Female', 'btn btn-info': gender=='Female'}"
+                        @click="setGender('Female')">
+                         Female
+                     </button>
+                     <button v-bind:class="{'btn btn-outline-info': gender!='Other', 'btn btn-info': gender=='Other'}"
+                        @click="setGender('Other')">
+                         Other
+                     </button>
+                 </div>
+
+             
+
+                 <h3>Activities</h3>
+                 <h4>Choose 3 physical activites you are interested in:</h4>
+                 <div class="activites">
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Baseball/Softball' || activity2!='Baseball/Softball' || activity3!='Baseball/Softball', 'btn btn-info': activity1=='Baseball/Softball' || activity2=='Baseball/Softball' || activity3=='Baseball/Softball'}"
+                         @click="setActivity('Baseball/Softball')">
+                         Baseball/Softball
+                 </button>
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Basketball' || activity2!='Basketball' || activity3!='Basketball', 'btn btn-info': activity1=='Basketball' || activity2=='Basketball' || activity3=='Basketball'}"
+                         @click="setActivity('Basketball')">
+                         Basketball
+                 </button>
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Bowling' || activity2!='Bowling' || activity3!='Bowling', 'btn btn-info': activity1=='Bowling' || activity2=='Bowling' || activity3=='Bowling'}"
+                         @click="setActivity('Bowling')">
+                         Bowling
+                 </button>
+
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Field hockey' || activity2!='Field hockey' || activity3!='Field hockey', 'btn btn-info': activity1=='Field hockey' || activity2=='Field hockey' || activity3=='Field hockey'}"
+                         @click="setActivity('Field hockey')">
+                         Field hockey
+                 </button>
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Football' || activity2!='Football' || activity3!='Football', 'btn btn-info': activity1=='Football' || activity2=='Football' || activity3=='Football'}"
+                         @click="setActivity('Football')">
+                         Football
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Gym - cardio' || activity2!='Gym - cardio' || activity3!='Gym - cardio', 'btn btn-info': activity1=='Gym - cardio' || activity2=='Gym - cardio' || activity3=='Gym - cardio'}"
+                         @click="setActivity('Gym - cardio')">
+                         Gym - cardio
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Gym - weights' || activity2!='Gym - weights' || activity3!='Gym - weights', 'btn btn-info': activity1=='Gym - weights' || activity2=='Gym - weights' || activity3=='Gym - weights'}"
+                         @click="setActivity('Gym - weights')">
+                         Gym - weights
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Gymnastics' || activity2!='Gymnastics' || activity3!='Gymnastics', 'btn btn-info': activity1=='Gymnastics' || activity2=='Gymnastics' || activity3=='Gymnastics'}"
+                         @click="setActivity('Gymnastics')">
+                         Gymnastics
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Ice hockey' || activity2!='Ice hockey' || activity3!='Ice hockey', 'btn btn-info': activity1=='Ice hockey' || activity2=='Ice hockey' || activity3=='Ice hockey'}"
+                         @click="setActivity('Ice hockey')">
+                         Ice hockey
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Lacrosse' || activity2!='Lacrosse' || activity3!='Lacrosse', 'btn btn-info': activity1=='Lacrosse' || activity2=='Lacrosse' || activity3=='Lacrosse'}"
+                         @click="setActivity('Lacrosse')">
+                         Lacrosse
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Rowing' || activity2!='Rowing' || activity3!='Rowing', 'btn btn-info': activity1=='Rowing' || activity2=='Rowing' || activity3=='Rowing'}"
+                         @click="setActivity('Rowing')">
+                         Rowing
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Running' || activity2!='Running' || activity3!='Running', 'btn btn-info': activity1=='Running' || activity2=='Running' || activity3=='Running'}"
+                         @click="setActivity('Running')">
+                         Running
+                 </button>
+                <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Soccer' || activity2!='Soccer' || activity3!='Soccer', 'btn btn-info': activity1=='Soccer' || activity2=='Soccer' || activity3=='Soccer'}"
+                         @click="setActivity('Soccer')">
+                         Soccer
+                     </button>
+                     <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Swimming/Diving' || activity2!='Swimming/Diving' || activity3!='Swimming/Diving', 'btn btn-info': activity1=='Swimming/Diving' || activity2=='Swimming/Diving' || activity3=='Swimming/Diving'}"
+                         @click="setActivity('Swimming/Diving')">
+                         Swimming/Diving
+                     </button>
+                     <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Table tennis' || activity2!='Table tennis' || activity3!='Table tennis', 'btn btn-info': activity1=='Table tennis' || activity2=='Table tennis' || activity3=='Table tennis'}"
+                         @click="setActivity('Table tennis')">
+                         Table tennis
+                     </button>
+                     <button class="buttonA"  v-bind:class="{'btn btn-outline-info': activity1!='Tennis' || activity2!='Tennis' || activity3!='Tennis', 'btn btn-info': activity1=='Tennis' || activity2=='Tennis' || activity3=='Tennis'}"
+                         @click="setActivity('Tennis')">
+                         Tennis
+                     </button>
+                     <button class="buttonA"  v-bind:class="{'btn btn-outline-info': activity1!='Volleyball' || activity2!='Volleyball' || activity3!='Volleyball', 'btn btn-info': activity1=='Volleyball' || activity2=='Volleyball' || activity3=='Volleyball'}"
+                         @click="setActivity('Volleyball')">
+                         Volleyball
+                     </button>
+                     <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Walking' || activity2!='Walking' || activity3!='Walking', 'btn btn-info': activity1=='Walking' || activity2=='Walking' || activity3=='Walking'}"
+                         @click="setActivity('Walking')">
+                         Walking
+                     </button>
+                     <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Wrestling' || activity2!='Wrestling' || activity3!='Wrestling', 'btn btn-info': activity1=='Wrestling' || activity2=='Wrestling' || activity3=='Wrestling'}"
+                         @click="setActivity('Wrestling')">
+                         Wrestling
+                     </button>
+                 </div>
+                 <h3>Year</h3>
+                 <div class="years">
+                <button v-bind:class="{'btn btn-outline-info': year!='Freshman', 'btn btn-info': year=='Freshman'}"
+                        @click="setYear('Freshman')">
+                    Freshman
+                </button>
+                <button v-bind:class="{'btn btn-outline-info': year!='Sophomore', 'btn btn-info': year=='Sophomore'}"
+                        @click="setYear('Sophomore')">
+                    Sophomore
+                </button>
+                <button v-bind:class="{'btn btn-outline-info': year!='Junior', 'btn btn-info': year=='Junior'}"
+                        @click="setYear('Junior')">
+                    Junior
+                </button>
+                <button v-bind:class="{'btn btn-outline-info': year!='Senior', 'btn btn-info': year=='Senior'}"
+                        @click="setYear('Senior')">
+                    Senior
+                </button>
+                <button v-bind:class="{'btn btn-outline-info': year!='Graduate Student', 'btn btn-info': year=='Graduate Student'}"
+                        @click="setYear('Graduate Student')">
+                    Graduate Student
+                </button>
+            </div>
+            <h3>Profile Picture</h3>
+            <h4>Please upload a picture:</h4>
+            
+
+            <button class="jayshaun" v-bind:class="{'btn btn-outline-info': image==null, 'btn btn-info': image!=null}" @click="onPickFile">Choose photo</button>
+            <input type="file"
+                   style="display: none"
+                   ref="fileInput"
+                   accept="image/*"
+                   @change="onFilePicked" />
+
+            <button class="btn btn-success" @click="signUp()">Sign Up</button>
+            <div class="ricks1"></div>
+            <div><button class="btn btn-warning" @click="returnHome()">← Go Back</button></div>
+            <div class="ricks1"></div>
+
+        </div>
+     </div>
+
+     <div v-if="updatePageShow" id="updatePage">
+        <div class="skeeps"></div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3>Email: {{email}}</h3>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3>Name: (First & Last) {{name}}</h3>
+            <input type="text" id="nameTextBox">
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3>Password: {{password}}</h3>
+            <input type="password" id="passwordTextBox">
+            <br><br>
+            <input type="checkbox" onclick="myFunction99()">Show Password
+            <div class="ricks1"></div>
+            <script>
+                function myFunction99() {
+                var x = document.getElementById("password");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+                }
+            </script>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+             <h3>Gender</h3>
+             <div class="genders">
+                 <button v-bind:class="{'btn btn-outline-info': gender!='Male', 'btn btn-info': gender=='Male'}"
+                    @click="setGender('Male')">
+                     Male
+                 </button>
+                 <button v-bind:class="{'btn btn-outline-info': gender!='Female', 'btn btn-info': gender=='Female'}"
+                    @click="setGender('Female')">
+                     Female
+                 </button>
+                 <button v-bind:class="{'btn btn-outline-info': gender!='Other', 'btn btn-info': gender=='Other'}"
+                    @click="setGender('Other')">
+                     Other
+                 </button>
+             </div>
+
+             <h3>Activities</h3>
+             <h4>Choose 3 physical activites you are interested in:</h4>
+             <div class="activites">
+             <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Baseball/Softball' || activity2!='Baseball/Softball' || activity3!='Baseball/Softball', 'btn btn-info': activity1=='Baseball/Softball' || activity2=='Baseball/Softball' || activity3=='Baseball/Softball'}"
+                     @click="setActivity('Baseball/Softball')">
+                     Baseball/Softball
+             </button>
+             <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Basketball' || activity2!='Basketball' || activity3!='Basketball', 'btn btn-info': activity1=='Basketball' || activity2=='Basketball' || activity3=='Basketball'}"
+                     @click="setActivity('Basketball')">
+                     Basketball
+             </button>
+             <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Bowling' || activity2!='Bowling' || activity3!='Bowling', 'btn btn-info': activity1=='Bowling' || activity2=='Bowling' || activity3=='Bowling'}"
+                     @click="setActivity('Bowling')">
+                     Bowling
+             </button>
+
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Field hockey' || activity2!='Field hockey' || activity3!='Field hockey', 'btn btn-info': activity1=='Field hockey' || activity2=='Field hockey' || activity3=='Field hockey'}"
+                     @click="setActivity('Field hockey')">
+                     Field hockey
+             </button>
+             <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Football' || activity2!='Football' || activity3!='Football', 'btn btn-info': activity1=='Football' || activity2=='Football' || activity3=='Football'}"
+                     @click="setActivity('Football')">
+                     Football
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Gym - cardio' || activity2!='Gym - cardio' || activity3!='Gym - cardio', 'btn btn-info': activity1=='Gym - cardio' || activity2=='Gym - cardio' || activity3=='Gym - cardio'}"
+                     @click="setActivity('Gym - cardio')">
+                     Gym - cardio
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Gym - weights' || activity2!='Gym - weights' || activity3!='Gym - weights', 'btn btn-info': activity1=='Gym - weights' || activity2=='Gym - weights' || activity3=='Gym - weights'}"
+                     @click="setActivity('Gym - weights')">
+                     Gym - weights
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Gymnastics' || activity2!='Gymnastics' || activity3!='Gymnastics', 'btn btn-info': activity1=='Gymnastics' || activity2=='Gymnastics' || activity3=='Gymnastics'}"
+                     @click="setActivity('Gymnastics')">
+                     Gymnastics
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Ice hockey' || activity2!='Ice hockey' || activity3!='Ice hockey', 'btn btn-info': activity1=='Ice hockey' || activity2=='Ice hockey' || activity3=='Ice hockey'}"
+                     @click="setActivity('Ice hockey')">
+                     Ice hockey
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Lacrosse' || activity2!='Lacrosse' || activity3!='Lacrosse', 'btn btn-info': activity1=='Lacrosse' || activity2=='Lacrosse' || activity3=='Lacrosse'}"
+                     @click="setActivity('Lacrosse')">
+                     Lacrosse
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Rowing' || activity2!='Rowing' || activity3!='Rowing', 'btn btn-info': activity1=='Rowing' || activity2=='Rowing' || activity3=='Rowing'}"
+                     @click="setActivity('Rowing')">
+                     Rowing
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Running' || activity2!='Running' || activity3!='Running', 'btn btn-info': activity1=='Running' || activity2=='Running' || activity3=='Running'}"
+                     @click="setActivity('Running')">
+                     Running
+             </button>
+            <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Soccer' || activity2!='Soccer' || activity3!='Soccer', 'btn btn-info': activity1=='Soccer' || activity2=='Soccer' || activity3=='Soccer'}"
+                     @click="setActivity('Soccer')">
+                     Soccer
+                 </button>
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Swimming/Diving' || activity2!='Swimming/Diving' || activity3!='Swimming/Diving', 'btn btn-info': activity1=='Swimming/Diving' || activity2=='Swimming/Diving' || activity3=='Swimming/Diving'}"
+                     @click="setActivity('Swimming/Diving')">
+                     Swimming/Diving
+                 </button>
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Table tennis' || activity2!='Table tennis' || activity3!='Table tennis', 'btn btn-info': activity1=='Table tennis' || activity2=='Table tennis' || activity3=='Table tennis'}"
+                     @click="setActivity('Table tennis')">
+                     Table tennis
+                 </button>
+                 <button class="buttonA"  v-bind:class="{'btn btn-outline-info': activity1!='Tennis' || activity2!='Tennis' || activity3!='Tennis', 'btn btn-info': activity1=='Tennis' || activity2=='Tennis' || activity3=='Tennis'}"
+                     @click="setActivity('Tennis')">
+                     Tennis
+                 </button>
+                 <button class="buttonA"  v-bind:class="{'btn btn-outline-info': activity1!='Volleyball' || activity2!='Volleyball' || activity3!='Volleyball', 'btn btn-info': activity1=='Volleyball' || activity2=='Volleyball' || activity3=='Volleyball'}"
+                     @click="setActivity('Volleyball')">
+                     Volleyball
+                 </button>
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Walking' || activity2!='Walking' || activity3!='Walking', 'btn btn-info': activity1=='Walking' || activity2=='Walking' || activity3=='Walking'}"
+                     @click="setActivity('Walking')">
+                     Walking
+                 </button>
+                 <button class="buttonA" v-bind:class="{'btn btn-outline-info': activity1!='Wrestling' || activity2!='Wrestling' || activity3!='Wrestling', 'btn btn-info': activity1=='Wrestling' || activity2=='Wrestling' || activity3=='Wrestling'}"
+                     @click="setActivity('Wrestling')">
+                     Wrestling
+                 </button>
+             </div>
+             <h3>Year</h3>
+             <div class="years">
+            <button v-bind:class="{'btn btn-outline-info': year!='Freshman', 'btn btn-info': year=='Freshman'}"
+                    @click="setYear('Freshman')">
+                Freshman
+            </button>
+            <button v-bind:class="{'btn btn-outline-info': year!='Sophomore', 'btn btn-info': year=='Sophomore'}"
+                    @click="setYear('Sophomore')">
+                Sophomore
+            </button>
+            <button v-bind:class="{'btn btn-outline-info': year!='Junior', 'btn btn-info': year=='Junior'}"
+                    @click="setYear('Junior')">
+                Junior
+            </button>
+            <button v-bind:class="{'btn btn-outline-info': year!='Senior', 'btn btn-info': year=='Senior'}"
+                    @click="setYear('Senior')">
+                Senior
+            </button>
+            <button v-bind:class="{'btn btn-outline-info': year!='Graduate Student', 'btn btn-info': year=='Graduate Student'}"
+                    @click="setYear('Graduate Student')">
+                Graduate Student
+            </button>
+        </div>
+        <h3>Profile Picture</h3>
+        <h4>Please upload a picture:</h4>
+
+        <button v-bind:class="{'btn btn-outline-info': image==null, 'btn btn-info': image!=null}" @click="onPickFile">Choose photo</button>
+        <input type="file"
+               style="display: none"
+               ref="fileInput"
+               accept="image/*"
+               @change="onFilePicked" />
+
+        <button class="btn btn-success" @click="updateInfo()">Update</button>
+    </div>
+ </div>
+
+
+
+           <div v-if="searchPageShow" class="containerSearch" id="searchPage">
+
+               <div class="split left">
+                   <div class="col-lg-12 col-md-12 col-sm-12">
+
+                       
+        <div class="filterpad0">
+            <h3>
+                Filters:
+            </h3>
+        </div>
+       <div class="filterpad1"></div>
+       <div class="dropDown-Group1">
+        <button v-bind:class="{'btn btn-light dropdown-toggle': genderFiltPicked=='false', 'btn btn-info dropdown-toggle': genderFiltPicked=='true'}" data-toggle="dropdown" aria-labelledby="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">Gender ▾</button>
+           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+               
+               <a v-bind:class="maleGenderButton" @click.stop="" @click="setGenderFilter('Male')">
+                   Male
+               </a>
+               <br><a v-bind:class="femaleGenderButton" @click.stop="" @click="setGenderFilter('Female')">
+                   Female</a></br>
+               <a v-bind:class="otherGenderButton" @click.stop="" @click="setGenderFilter('Other')">
+                       Other
+               </a>
+           </div>
+       </div>
+       <div class="filterpad2"></div>
+       <div class="dropDown-Group2">
+        <button v-bind:class="{'btn btn-light dropdown-toggle': activitiesFiltPicked=='false', 'btn btn-info dropdown-toggle': activitiesFiltPicked=='true'}" data-toggle="dropdown" aria-labelledby="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">Activity ▾</button>
+           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+               <a v-bind:class="baseballSoftballActivitiesButton" @click.stop="" @click="setActivitiesFilter('Baseball/Softball')">Baseball/Softball</a>
+               <br><a v-bind:class="basketballActivitiesButton" @click.stop="" @click="setActivitiesFilter('Basketball')">Basketball</a></br>
+               <a v-bind:class="bowlingActivitiesButton" @click.stop="" @click="setActivitiesFilter('Bowling')">Bowling</a>
+               <br><a v-bind:class="fieldHockeyActivitiesButton" @click.stop="" @click="setActivitiesFilter('Field hockey')">Field hockey</a></br>
+               <a v-bind:class="footballActivitiesButton" @click.stop="" @click="setActivitiesFilter('Football')">Football</a>
+               <br><a v-bind:class="gymCardioActivitiesButton" @click.stop="" @click="setActivitiesFilter('Gym - cardio')">Gym - cardio</a></br>
+               <a v-bind:class="gymWeightsActivitiesButton" @click.stop="" @click="setActivitiesFilter('Gym - weights')">Gym - weights</a>
+               <br><a v-bind:class="gymnasticsActivitiesButton" @click.stop="" @click="setActivitiesFilter('Gymnastics')">Gymnastics</a></br>
+               <a v-bind:class="iceHockeyActivitiesButton" @click.stop="" @click="setActivitiesFilter('Ice hockey')">Ice hockey</a>
+               <br><a v-bind:class="lacrosseActivitiesButton" @click.stop="" @click="setActivitiesFilter('Lacrosse')">Lacrosse</a></br>
+               <a v-bind:class="rowingActivitiesButton" @click.stop="" @click="setActivitiesFilter('Rowing')">Rowing</a>
+               <br><a v-bind:class="runningActivitiesButton" @click.stop="" @click="setActivitiesFilter('Running')">Running</a></br>
+               <a v-bind:class="soccerActivitiesButton" @click.stop="" @click="setActivitiesFilter('Soccer')">Soccer</a>
+               <br><a v-bind:class="swimmingDivingActivitiesButton" @click.stop="" @click="setActivitiesFilter('Swimming/Diving')">Swimming/Diving</a></br>
+               <a v-bind:class="tableTennisActivitiesButton" @click.stop="" @click="setActivitiesFilter('Table tennis')">Table tennis</a>
+               <br><a v-bind:class="tennisActivitiesButton" @click.stop="" @click="setActivitiesFilter('Tennis')">Tennis</a></br>
+               <a v-bind:class="volleyballActivitiesButton" @click.stop="" @click="setActivitiesFilter('Volleyball')">Volleyball</a>
+               <br><a v-bind:class="walkingActivitiesButton" @click.stop="" @click="setActivitiesFilter('Walking')">Walking</a></br>
+               <a v-bind:class="wrestlingActivitiesButton" @click.stop="" @click="setActivitiesFilter('Wrestling')">Wrestling</a>
+
+           </div>
+       </div>
+       <div class="filterpad2"></div>
+       <div class="dropDown-Group3">
+        <button v-bind:class="{'btn btn-light dropdown-toggle': yearFiltPicked=='false', 'btn btn-info dropdown-toggle': yearFiltPicked=='true'}" data-toggle="dropdown" aria-labelledby="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">Year ▾</button>
+           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+               
+               <a v-bind:class="freshmanYearButton" @click.stop="" @click="setYearFilter('Freshman')">
+                   Freshman
+               </a>
+               <br><a v-bind:class="sophomoreYearButton" @click.stop="" @click="setYearFilter('Sophomore')">
+                   Sophomore
+               </a></br>
+               <a v-bind:class="juniorYearButton" @click.stop="" @click="setYearFilter('Junior')">
+                   Junior
+               </a>
+               <br><a v-bind:class="seniorYearButton" @click.stop="" @click="setYearFilter('Senior')">
+                   Senior
+               </a></br>
+               <a v-bind:class="graduatestudentYearButton" @click.stop="" @click="setYearFilter('Graduate Student')">
+                   Graduate Student
+               </a>
+
+           </div>
+       </div>
+   </div>
+   <div class="filterpad4"></div>
+   <div class="rowSearchbar">
+       <div class="col-lg-12 col-md-12 col-sm-12">
+           <button class="btn btn-success btn-lg" @click="searchButton()">Search</button>
+       </div>
+   </div>
+
+               <div id="right" class="split right">
+                <div class="centered">
+                    <div v-for="user in userArray">
+                        <div class="col-lg-6 col-md-6 col-sm-6" style='margin-bottom: 50px; margin-top:50px; display: inline; height: 250px'>
+                            <div class="col-sm-4" style='max-width:200px;margin-right: 30px'>
+                                <img style='width: 150px; height: 150px; display: inline; ' v-bind:src=user[7]>
+
+                            </div>
+                            <h4 class="surnameClass"> <b>{{user[0]}}  </b>({{user[1]}}) </h4>
+                            <div class="col-sm-6" style='max-height: 250px;'>
+                                
+                                <hr class="lineDawg">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active">
+                                        <li><b>Activities: </b>{{user[2]}}, {{user[3]}}, {{user[4]}}</li>
+                                        <li><b>Year: </b>{{user[5]}}</li>
+                                        <li><b>Email: </b>{{user[6]}}</li>
+                                           
+
+                                       </div>
+                                       
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+           </div>
+       </div>
+       <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+       <script src="script.js" type="module"></script>
+
+       
+
+   </body>
+</html>

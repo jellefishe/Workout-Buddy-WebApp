@@ -1,0 +1,16 @@
+{
+  "name": "code-vips",
+  "version": "1.0.0",
+  "description": "",
+  "main": "firebase.js",
+  "dependencies": {
+    "@firebase/app": "^0.7.10",
+    "firebase": "^9.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
