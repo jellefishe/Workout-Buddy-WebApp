@@ -1,3 +1,5 @@
 
-Viewing vigor by opening index.html causes an error by "type=module" in index.html.
-must ope through vscode live
+Viewing vigor through index.html causes an error by "type=module" in index.html.
+must open through vscode live
+===update====
+ui is broken atm because database is down and cannot pull data from google firebase
